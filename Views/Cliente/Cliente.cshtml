@@ -1,0 +1,61 @@
+﻿@model List<PtccAsp.net.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Clientes Cadastrados";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>👥 Clientes Cadastrados</h2>
+        <a href="/Cliente/Cliente" class="btn btn-primary">➕ Novo Cliente</a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Endereço</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cliente in Model)
+                            {
+                                <tr>
+                                    <td>@cliente.Nome</td>
+                                    <td>@cliente.Email</td>
+                                    <td>@cliente.Endereco</td>
+                                    <td>
+                                        <a href="/Cliente/Excluir/@cliente.Id"
+                                           class="btn btn-danger btn-sm"
+                                           onclick="return confirm('Tem certeza que deseja excluir este cliente?')">
+                                            🗑️ Excluir
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3 text-muted">
+            <small>Total de clientes: @Model.Count</small>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+            <h5>Nenhum cliente cadastrado ainda</h5>
+            <p>Comece cadastrando seu primeiro cliente!</p>
+            <a href="/Cliente/Cliente" class="btn btn-primary">Cadastrar Primeiro Cliente</a>
+        </div>
+    }
+</div>

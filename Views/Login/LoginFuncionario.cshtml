@@ -1,0 +1,25 @@
+﻿@model PtccAsp.net.Models.Login
+
+
+<div class="container d-flex justify-content-center">
+    <form method="post" asp-controller="Login" asp-action="Autenticar" class="col-md-6">
+        <h1 class="text-center">Login Funcionário</h1>
+
+        @if (TempData["Erro"] != null)
+        {
+            <div class="alert alert-danger">@TempData["Erro"]</div>
+        }
+
+        <div class="mb-3">
+            <label class="form-label">Usuário (Email)</label>
+            <input type="text" class="form-control" asp-for="Usuario" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Senha</label>
+            <input type="password" class="form-control" asp-for="Senha" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Entrar</button>
+    </form>
+</div>

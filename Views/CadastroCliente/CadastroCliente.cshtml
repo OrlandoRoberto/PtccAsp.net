@@ -1,0 +1,36 @@
+﻿@model PtccAsp.net.Models.Cliente
+
+@if (TempData["Sucesso"] != null)
+{
+    <div class="alert alert-success">@TempData["Sucesso"]</div>
+}
+
+
+@if (TempData["Erro"] != null)
+{
+    <div class="alert alert-danger">@TempData["Erro"]</div>
+}
+
+
+<div class="container d-flex justify-content-center">
+    <form method="post" asp-controller="Cliente" asp-action="Create" class="col-md-6">
+        <h1 class="text-center">Cadastrar Cliente</h1>
+
+        <div class="mb-3">
+            <label class="form-label">Nome do Cliente</label>
+            <input type="text" class="form-control" asp-for="Nome" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" asp-for="Email" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Endereço</label>
+            <input type="text" class="form-control" asp-for="Endereco" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+    </form>
+</div>

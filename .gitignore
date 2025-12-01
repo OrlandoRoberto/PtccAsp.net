@@ -1,0 +1,5 @@
+bin/
+obj/
+PtccAsp.net.csproj.user
+.vs/
+appsettings.Development.json
