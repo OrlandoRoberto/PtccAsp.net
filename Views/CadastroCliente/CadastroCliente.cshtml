@@ -13,8 +13,15 @@
 
 
 <div class="container d-flex justify-content-center">
-    <form method="post" asp-controller="Cliente" asp-action="Create" class="col-md-6">
-        <h1 class="text-center">Cadastrar Cliente</h1>
+    <form method="post"
+          asp-controller="Cliente"
+          asp-action="@(Model?.Id > 0 ? "Update" : "Create")"
+          class="col-md-6">
+
+        <h1 class="text-center">
+            @(Model?.Id > 0 ? "Editar Cliente" : "Cadastrar Cliente")
+        </h1>
+        <input type="hidden" asp-for="Id" />
 
         <div class="mb-3">
             <label class="form-label">Nome do Cliente</label>
@@ -31,6 +38,8 @@
             <input type="text" class="form-control" asp-for="Endereco" required>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+        <button type="submit" class="btn btn-primary w-100">
+            @(Model?.Id > 0 ? "Atualizar" : "Cadastrar")
+        </button>
     </form>
 </div>

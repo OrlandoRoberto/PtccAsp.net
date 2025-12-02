@@ -45,6 +45,47 @@ namespace PtccAsp.net.Controllers
             return RedirectToAction("Cliente");
         }
 
+        public IActionResult Editar(int id)
+        {
+            if (!UsuarioLogado())
+            {
+                return RedirectToAction("LoginFuncionario", "Login");
+            }
+
+            var cliente = ClientesSalvos.FirstOrDefault(c => c.Id == id);
+            if (cliente == null)
+            {
+                TempData["Erro"] = "Cliente não encontrado!";
+                return RedirectToAction("Lista");
+            }
+
+            return View("~/Views/CadastroCliente/CadastroCliente.cshtml", cliente);
+        }
+
+        [HttpPost]
+        public IActionResult Update(Cliente clienteEditado)
+        {
+            if (!UsuarioLogado())
+            {
+                return RedirectToAction("LoginFuncionario", "Login");
+            }
+
+            var clienteAntigo = ClientesSalvos.FirstOrDefault(c => c.Id == clienteEditado.Id);
+            if (clienteAntigo == null)
+            {
+                TempData["Erro"] = "Cliente não encontrado!";
+                return RedirectToAction("Lista");
+            }
+
+            // Atualiza os dados
+            clienteAntigo.Nome = clienteEditado.Nome;
+            clienteAntigo.Email = clienteEditado.Email;
+            clienteAntigo.Endereco = clienteEditado.Endereco;
+
+            TempData["Sucesso"] = "Cliente atualizado com sucesso!";
+            return RedirectToAction("Lista");
+        }
+
         public IActionResult Lista()
         {
             if (!UsuarioLogado())

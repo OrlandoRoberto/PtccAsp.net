@@ -45,6 +45,46 @@ namespace PtccAsp.net.Controllers
             return RedirectToAction("CadastroProduto");
             }
 
+        public IActionResult Editar(int id)
+        {
+            if (!UsuarioLogado())
+            {
+                return RedirectToAction("LoginFuncionario", "Login");
+            }
+
+            var produto = ProdutosSalvos.FirstOrDefault(p => p.IdProduto == id);
+            if (produto == null)
+            {
+                TempData["Erro"] = "Produto não encontrado!";
+                return RedirectToAction("ProdutosCadastrados", "ProdutosCadastrados");
+            }
+
+            return View("CadastroProduto", produto);
+        }
+
+        [HttpPost]
+        public IActionResult Update(CadastroProduto produtoEditado)
+        {
+            if (!UsuarioLogado())
+            {
+                return RedirectToAction("LoginFuncionario", "Login");
+            }
+
+            var produtoAntigo = ProdutosSalvos.FirstOrDefault(p => p.IdProduto == produtoEditado.IdProduto);
+            if (produtoAntigo == null)
+            {
+                TempData["Erro"] = "Produto não encontrado!";
+                return RedirectToAction("ProdutosCadastrados", "ProdutosCadastrados");
+            }
+
+            // Atualiza os dados
+            produtoAntigo.NomeProduto = produtoEditado.NomeProduto;
+            produtoAntigo.Categoria = produtoEditado.Categoria;
+            produtoAntigo.Preco = produtoEditado.Preco;
+
+            TempData["Sucesso"] = "Produto atualizado com sucesso!";
+            return RedirectToAction("ProdutosCadastrados", "ProdutosCadastrados");
+        }
         public IActionResult Excluir(int id)
         {
             if (!UsuarioLogado())

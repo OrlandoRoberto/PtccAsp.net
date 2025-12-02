@@ -36,6 +36,12 @@
                                         <strong>R$ @produto.Preco.ToString("N2")</strong>
                                     </td>
                                     <td>
+
+                                        <a href="/CadastroProduto/Editar/@produto.IdProduto"
+                                           class="btn btn-warning btn-sm">
+                                            ✏️ Editar
+                                        </a>
+                                      
                                         <a href="/CadastroProduto/Excluir/@produto.IdProduto"
                                            class="btn btn-danger btn-sm"
                                            onclick="return confirm('Tem certeza que deseja excluir este produto?')">
